@@ -39,6 +39,7 @@
 - (void)configUI
 {
     self.navigationController.navigationBar.barTintColor=[UIColor cyanColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     _ILike=[[UIButton alloc]initWithFrame:CGRectMake(20 , 150, SCREENWIDTH/4, SCREENWIDTH/10)];
     _ILike.backgroundColor=[UIColor greenColor];

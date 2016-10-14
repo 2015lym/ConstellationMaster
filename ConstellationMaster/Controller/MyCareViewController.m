@@ -54,7 +54,7 @@
     header.automaticallyChangeAlpha = YES;
     
     // 隐藏时间
-    header.lastUpdatedTimeLabel.hidden = YES;
+    header.lastUpdatedTimeLabel.hidden = NO;
     
     // 马上进入刷新状态
     [header beginRefreshing];
@@ -89,7 +89,6 @@
     }
     Like *likecell=_cellArray[indexPath.row];
     cell.textLabel.text=likecell.name;
-    cell.backgroundColor=[UIColor cyanColor];
     return cell;
 }
 

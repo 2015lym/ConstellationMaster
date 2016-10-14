@@ -270,6 +270,7 @@
 				TargetAttributes = {
 					38E9515C1CA78222006DA66D = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = PT38H38E4T;
 					};
 				};
 			};
@@ -504,6 +505,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = PT38H38E4T;
 				INFOPLIST_FILE = ConstellationMaster/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Lym.ConstellationMaster;
@@ -517,6 +519,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = PT38H38E4T;
 				INFOPLIST_FILE = ConstellationMaster/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Lym.ConstellationMaster;
