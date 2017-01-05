@@ -15,9 +15,9 @@
 
 @interface MainViewController()<UICollectionViewDataSource,UICollectionViewDelegate>
 
-@property UICollectionView * FLowLayoutView;
-@property (nonatomic,strong) NSArray *ConstellationImg;
-@property (nonatomic,strong) NSArray *ConstellationName;
+@property (strong, nonatomic) UICollectionView * FLowLayoutView;
+@property (strong, nonatomic) NSArray *ConstellationImg;
+@property (strong, nonatomic) NSArray *ConstellationName;
 
 @end
 
@@ -29,7 +29,6 @@
     self.navigationController.navigationBar.barTintColor=[UIColor cyanColor];
     
     [self initDefaultArray];
-
     [self initCollectionView];
 
 }
@@ -44,12 +43,12 @@
 #pragma mark - ---------- 初始化CollectionView ----------
 - (void)initCollectionView
 {
-    UICollectionViewFlowLayout *ConstellatioFlowLayout=[[UICollectionViewFlowLayout alloc]init];
-    ConstellatioFlowLayout.itemSize=CGSizeMake(SCREENWIDTH/4, SCREENWIDTH/4);
-    ConstellatioFlowLayout.sectionInset=UIEdgeInsetsMake(10, 18, 18, 18);   //往中间的距离 上 左 下 右
-    ConstellatioFlowLayout.scrollDirection=UICollectionViewScrollDirectionVertical;
+    UICollectionViewFlowLayout *constellatioFlowLayout=[[UICollectionViewFlowLayout alloc]init];
+    constellatioFlowLayout.itemSize=CGSizeMake(SCREENWIDTH/4, SCREENWIDTH/4);
+    constellatioFlowLayout.sectionInset=UIEdgeInsetsMake(10, 18, 18, 18);   //往中间的距离 上 左 下 右
+    constellatioFlowLayout.scrollDirection=UICollectionViewScrollDirectionVertical;
     
-    _FLowLayoutView=[[UICollectionView alloc] initWithFrame:CGRectMake(0, 50, SCREENWIDTH, SCREENHEIGHT-50) collectionViewLayout:ConstellatioFlowLayout];
+    _FLowLayoutView=[[UICollectionView alloc] initWithFrame:CGRectMake(0, 50, SCREENWIDTH, SCREENHEIGHT-50) collectionViewLayout:constellatioFlowLayout];
     _FLowLayoutView.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:_FLowLayoutView];
     [_FLowLayoutView registerClass:[ConstellFlowLayoutCell class] forCellWithReuseIdentifier:@"cell"];
@@ -78,9 +77,9 @@
 #pragma mark - ---------- 每个Cell的点击事件 ----------
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    MainInfoViewController *InfoVC=[[MainInfoViewController alloc]init];
-    InfoVC.ControlName = _ConstellationName[indexPath.row];
-    [self.navigationController pushViewController:InfoVC animated:YES];
+    MainInfoViewController *vc=[[MainInfoViewController alloc]init];
+    vc.controlName = _ConstellationName[indexPath.row];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

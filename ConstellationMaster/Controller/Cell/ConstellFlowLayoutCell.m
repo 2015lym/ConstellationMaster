@@ -25,7 +25,7 @@
     
     _CellText=[[UILabel alloc]init];
     _CellText.font=[UIFont systemFontOfSize:ScreenWidth/25];
-    _CellText.textAlignment = NSTextAlignmentCenter;  //*****文字居中
+    _CellText.textAlignment = NSTextAlignmentCenter;  //文字居中
     [self.contentView addSubview:_CellText];
     [_CellText mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(ScreenWidth/6, ScreenWidth/4-ScreenWidth/5));

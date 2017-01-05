@@ -9,5 +9,7 @@
 #import "CoreDataBase.h"
 
 @interface CoreDataBase (Query)
+
 -(NSMutableArray*)queryEntityName:(NSString*)name Where:(NSString*)where;
+
 @end

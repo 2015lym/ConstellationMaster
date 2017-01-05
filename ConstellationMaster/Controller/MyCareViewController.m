@@ -26,9 +26,9 @@
 
 @implementation MyCareViewController
 
+#pragma mark - ---------- 生命周期 ----------
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    /*   ---写在这里保证点击后立刻刷新---   */
     cdb= [CoreDataBase shardCoreDataBase];
     _cellArray=[cdb queryEntityName:@"Like" Where:nil];
     [self refreshScreen];
@@ -45,23 +45,23 @@
     
 }
 
-//MJRefresh
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
+
+#pragma mark - ---------- MJRefresh ----------
 -(void)refreshScreen{
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
-    
     // 设置自动切换透明度(在导航栏下面自动隐藏)
     header.automaticallyChangeAlpha = YES;
-    
     // 隐藏时间
     header.lastUpdatedTimeLabel.hidden = NO;
-    
-    // 马上进入刷新状态
     [header beginRefreshing];
-    
-    // 设置header
     _myFellowTableView.mj_header = header;
 }
+
+#pragma mark - ---------- 读取数据 ----------
 -(void)loadNewData
 {
     //刷新表格 从数据库读取数据
@@ -72,13 +72,13 @@
     [_myFellowTableView.mj_header endRefreshing];
 }
 
-/*
-多少个cell
- */
+#pragma mark - ---------- Cell的数量 ----------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
     return _cellArray.count;
 }
+
+#pragma mark - ---------- 每个Cell的内容 ----------
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     //优化
@@ -92,25 +92,19 @@
     return cell;
 }
 
-/*
- 每个cell的高度
-*/
+#pragma mark - ---------- 每个Cell的高度 ----------
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     return 100.f;
 }
 
-/*
-对应的cell是否可以被编辑
- */
+#pragma mark - ---------- Cell是否可被编辑 ----------
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
 }
 
-/*
- 删除某个cell
- */
+#pragma mark - ---------- 删除Cell ----------
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -125,9 +119,7 @@
     }
 }
 
-/*
- 取消关注
- */
+#pragma mark - ---------- 取消关注 ----------
 -(void)deleteData:(NSIndexPath *)indexPath
 {
          NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
@@ -160,7 +152,4 @@
                  }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
 @end

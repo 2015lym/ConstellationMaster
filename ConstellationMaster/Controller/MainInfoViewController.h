@@ -11,6 +11,6 @@
 @interface MainInfoViewController : UIViewController
 
 //控制选择的是哪个星座
-@property (copy, nonatomic) NSString *ControlName;
+@property (copy, nonatomic) NSString *controlName;
 
 @end

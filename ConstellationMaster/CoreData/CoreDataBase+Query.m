@@ -9,14 +9,18 @@
 #import "CoreDataBase+Query.h"
 
 @implementation CoreDataBase (Query)
--(NSMutableArray*)queryEntityName:(NSString*)name Where:(NSString*)where{
+
+-(NSMutableArray*)queryEntityName:(NSString*)name Where:(NSString*)where {
+    
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:name inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:name
+                                              inManagedObjectContext:self.managedObjectContext];
     if (where != nil) {
         request.predicate = [NSPredicate predicateWithFormat:where];
     }
     request.entity = entity;
-    return [[self.managedObjectContext executeFetchRequest:request error:nil] mutableCopy];
+    return [[self.managedObjectContext executeFetchRequest:request
+                                                     error:nil] mutableCopy];
 }
 
 @end

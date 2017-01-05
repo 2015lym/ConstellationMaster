@@ -8,8 +8,8 @@
 
 #import "MainInfoViewController.h"
 #import "MyCareViewController.h"
-#import "AFNetworking.h"
 #import "CoreDataBase+Query.h"
+#import "AFNetworking.h"
 #import "Masonry.h"
 #import "Like.h"
 
@@ -25,15 +25,17 @@
 
 @implementation MainInfoViewController
 
+#pragma mark - ---------- 生命周期 ----------
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     [self configUI];
-    
     [self netRequest];
-
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
 
 #pragma mark - ---------- 初始化界面 ----------
 - (void)configUI
@@ -57,7 +59,7 @@
     CoreDatasArray=[cdb queryEntityName:@"Like" Where:nil];
     for (int i=0; i<CoreDatasArray.count; i++) {
         Like *searchlike=CoreDatasArray[i];
-        if ([self.ControlName isEqualToString:searchlike.name]) {  //字符串不能用==
+        if ([self.controlName isEqualToString:searchlike.name]) {  //字符串不能用==
             [_ILike setTitle:@"已关注" forState:UIControlStateNormal];
             break; //如果已经找到了就直接跳出循环
         }
@@ -72,7 +74,7 @@
     CoreDatasArray=[cdb queryEntityName:@"Like" Where:nil];
     for (int i=0; i<CoreDatasArray.count; i++) {
         Like *searchlike=CoreDatasArray[i];
-        if ([self.ControlName isEqualToString:searchlike.name]) {  //字符串不能用==
+        if ([self.controlName isEqualToString:searchlike.name]) {  //字符串不能用==
             Cnametest=1;
             break;
         }
@@ -81,7 +83,7 @@
     if(Cnametest==0)
     {
         Like *newlike=[NSEntityDescription insertNewObjectForEntityForName:@"Like" inManagedObjectContext:cdb.managedObjectContext];
-        newlike.name=self.ControlName;
+        newlike.name=self.controlName;
         [cdb saveContext];
         [_ILike setTitle:@"已关注" forState:UIControlStateNormal];
         [self createSign:@"添加关注成功"];
@@ -109,7 +111,7 @@
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     
-    dic[@"consName"] = self.ControlName;
+    dic[@"consName"] = self.controlName;
     dic[@"type"] = @"today";
     dic[@"key"] = @"5af259fa1e1f066249cf10a1297b4023";
     
@@ -165,10 +167,8 @@
 
     
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
--(void)createSign:(NSString *)sign  //AlertController提示方法 BY Lym
+
+-(void)createSign:(NSString *)sign
 {
     UIAlertController *Sign=[UIAlertController alertControllerWithTitle:sign message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *Yes=[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
