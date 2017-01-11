@@ -15,14 +15,14 @@
 
 @interface MainViewController()<UICollectionViewDataSource,UICollectionViewDelegate>
 
-@property (strong, nonatomic) UICollectionView * FLowLayoutView;
-@property (strong, nonatomic) NSArray *ConstellationImg;
-@property (strong, nonatomic) NSArray *ConstellationName;
+@property(strong, nonatomic) UICollectionView * fLowLayoutView;
+@property(strong, nonatomic) NSArray *constellationImage;
+@property(strong, nonatomic) NSArray *constellationName;
 
 @end
 
 @implementation MainViewController
-
+#pragma mark - ---------- 生命周期 ----------
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -30,37 +30,48 @@
     
     [self initDefaultArray];
     [self initCollectionView];
+    
+}
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
 }
 
 #pragma mark - ---------- 初始化数组 ----------
 - (void)initDefaultArray
 {
-    _ConstellationImg=[NSArray arrayWithObjects:@"baiyang",@"jinniu",@"shuangzi",@"juxie",@"shizi",@"chunv",@"tianping",@"tianxie",@"sheshou",@"mojie",@"shuiping",@"shuangyu", nil];
-    _ConstellationName=[NSArray arrayWithObjects:@"白羊座",@"金牛座",@"双子座",@"巨蟹座",@"狮子座",@"处女座",@"天秤座",@"天蝎座",@"射手座",@"摩羯座",@"水瓶座",@"双鱼座", nil];
+    _constellationImage = [NSArray arrayWithObjects:
+                           @"baiyang", @"jinniu", @"shuangzi", @"juxie",
+                           @"shizi", @"chunv", @"tianping", @"tianxie",
+                           @"sheshou", @"mojie", @"shuiping", @"shuangyu", nil];
+    
+    _constellationName=[NSArray arrayWithObjects:
+                        @"白羊座", @"金牛座", @"双子座", @"巨蟹座",
+                        @"狮子座", @"处女座", @"天秤座", @"天蝎座",
+                        @"射手座", @"摩羯座", @"水瓶座", @"双鱼座", nil];
 }
 
 #pragma mark - ---------- 初始化CollectionView ----------
 - (void)initCollectionView
 {
-    UICollectionViewFlowLayout *constellatioFlowLayout=[[UICollectionViewFlowLayout alloc]init];
-    constellatioFlowLayout.itemSize=CGSizeMake(SCREENWIDTH/4, SCREENWIDTH/4);
-    constellatioFlowLayout.sectionInset=UIEdgeInsetsMake(10, 18, 18, 18);   //往中间的距离 上 左 下 右
-    constellatioFlowLayout.scrollDirection=UICollectionViewScrollDirectionVertical;
+    UICollectionViewFlowLayout *constellatioFlowLayout = [[UICollectionViewFlowLayout alloc]init];
+    constellatioFlowLayout.itemSize = CGSizeMake(SCREENWIDTH/4, SCREENWIDTH/4);
+    constellatioFlowLayout.sectionInset = UIEdgeInsetsMake(10, 18, 18, 18);
+    constellatioFlowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     
-    _FLowLayoutView=[[UICollectionView alloc] initWithFrame:CGRectMake(0, 50, SCREENWIDTH, SCREENHEIGHT-50) collectionViewLayout:constellatioFlowLayout];
-    _FLowLayoutView.backgroundColor=[UIColor whiteColor];
-    [self.view addSubview:_FLowLayoutView];
-    [_FLowLayoutView registerClass:[ConstellFlowLayoutCell class] forCellWithReuseIdentifier:@"cell"];
-    
-    self.FLowLayoutView.dataSource=self;
-    self.FLowLayoutView.delegate=self;
+    self.fLowLayoutView=[[UICollectionView alloc] initWithFrame:CGRectMake(0, 50, SCREENWIDTH, SCREENHEIGHT-50)
+                                       collectionViewLayout:constellatioFlowLayout];
+    _fLowLayoutView.backgroundColor = [UIColor whiteColor];
+    _fLowLayoutView.dataSource = self;
+    _fLowLayoutView.delegate = self;
+    [self.view addSubview:_fLowLayoutView];
+    [_fLowLayoutView registerClass:[ConstellFlowLayoutCell class] forCellWithReuseIdentifier:@"cell"];
 }
 
 #pragma mark - ---------- Collection的数量 ----------
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return _ConstellationImg.count;
+    return _constellationImage.count;
 }
 
 #pragma mark - ---------- 每个Cell的内容 ----------
@@ -69,8 +80,8 @@
     static NSString * identity=@"cell";
     ConstellFlowLayoutCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identity forIndexPath:indexPath];
     [cell initContent];
-    cell.CellImg.image=[UIImage imageNamed:_ConstellationImg[indexPath.row]];
-    cell.CellText.text=_ConstellationName[indexPath.row];
+    cell.constellationImageView.image=[UIImage imageNamed:_constellationImage[indexPath.row]];
+    cell.constellationNameLabel.text=_constellationName[indexPath.row];
     return cell;
 }
 
@@ -78,12 +89,8 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     MainInfoViewController *vc=[[MainInfoViewController alloc]init];
-    vc.controlName = _ConstellationName[indexPath.row];
+    vc.controlName = _constellationName[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 @end

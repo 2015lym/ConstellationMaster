@@ -9,7 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface ConstellFlowLayoutCell : UICollectionViewCell
-@property(nonatomic,strong)UIImageView *CellImg;
-@property(nonatomic,strong)UILabel *CellText;
+
+@property(strong, nonatomic) UIImageView *constellationImageView;
+@property(strong, nonatomic) UILabel *constellationNameLabel;
+
 -(void)initContent;
+
 @end

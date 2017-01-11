@@ -18,9 +18,10 @@
 
 @interface MainInfoViewController()
 {
-    NSMutableArray *CoreDatasArray;
+    NSMutableArray *coreDatasArray;
 }
-@property (nonatomic,strong)UIButton *ILike;
+@property(strong, nonatomic) UIButton *userAttention;
+
 @end
 
 @implementation MainInfoViewController
@@ -40,15 +41,17 @@
 #pragma mark - ---------- 初始化界面 ----------
 - (void)configUI
 {
+    self.navigationItem.title = self.controlName;
+    
     self.navigationController.navigationBar.barTintColor=[UIColor cyanColor];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    _ILike=[[UIButton alloc]initWithFrame:CGRectMake(20 , 150, SCREENWIDTH/4, SCREENWIDTH/10)];
-    _ILike.backgroundColor=[UIColor greenColor];
-    [_ILike setTitle:@"关注" forState:UIControlStateNormal];
-    [_ILike addTarget:self action:@selector(followThisConstellation) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_ILike];
-    [_ILike mas_makeConstraints:^(MASConstraintMaker *make) {
+    _userAttention=[[UIButton alloc]initWithFrame:CGRectMake(20 , 150, SCREENWIDTH/4, SCREENWIDTH/10)];
+    _userAttention.backgroundColor=[UIColor greenColor];
+    [_userAttention setTitle:@"关注" forState:UIControlStateNormal];
+    [_userAttention addTarget:self action:@selector(followThisConstellation) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_userAttention];
+    [_userAttention mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(SCREENWIDTH/4, SCREENWIDTH/10));
         make.left.mas_equalTo(self.view).offset(SCREENWIDTH/20);
         make.centerY.mas_equalTo(self.view).offset(-SCREENWIDTH/2);
@@ -56,11 +59,11 @@
     
     //检测是否已经关注过了
     CoreDataBase *cdb = [CoreDataBase shardCoreDataBase];
-    CoreDatasArray=[cdb queryEntityName:@"Like" Where:nil];
-    for (int i=0; i<CoreDatasArray.count; i++) {
-        Like *searchlike=CoreDatasArray[i];
-        if ([self.controlName isEqualToString:searchlike.name]) {  //字符串不能用==
-            [_ILike setTitle:@"已关注" forState:UIControlStateNormal];
+    coreDatasArray=[cdb queryEntityName:@"Like" Where:nil];
+    for (int i=0; i<coreDatasArray.count; i++) {
+        Like *searchlike=coreDatasArray[i];
+        if ([self.controlName isEqualToString:searchlike.name]) {
+            [_userAttention setTitle:@"已关注" forState:UIControlStateNormal];
             break; //如果已经找到了就直接跳出循环
         }
     }
@@ -71,10 +74,10 @@
 {
     int Cnametest=0;
     CoreDataBase *cdb = [CoreDataBase shardCoreDataBase];
-    CoreDatasArray=[cdb queryEntityName:@"Like" Where:nil];
-    for (int i=0; i<CoreDatasArray.count; i++) {
-        Like *searchlike=CoreDatasArray[i];
-        if ([self.controlName isEqualToString:searchlike.name]) {  //字符串不能用==
+    coreDatasArray=[cdb queryEntityName:@"Like" Where:nil];
+    for (int i=0; i<coreDatasArray.count; i++) {
+        Like *searchlike=coreDatasArray[i];
+        if ([self.controlName isEqualToString:searchlike.name]) {
             Cnametest=1;
             break;
         }
@@ -85,7 +88,7 @@
         Like *newlike=[NSEntityDescription insertNewObjectForEntityForName:@"Like" inManagedObjectContext:cdb.managedObjectContext];
         newlike.name=self.controlName;
         [cdb saveContext];
-        [_ILike setTitle:@"已关注" forState:UIControlStateNormal];
+        [_userAttention setTitle:@"已关注" forState:UIControlStateNormal];
         [self createSign:@"添加关注成功"];
     }
     else
@@ -117,50 +120,50 @@
     
     [manager POST:@"http://web.juhe.cn:8080/constellation/getAll" parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
+        //最近测试接口发现有时会出现没有数据，导致程序崩溃的问题
+        //这里进行一下判断
         
-        
-        UILabel *Constellation=[[UILabel alloc]init];
-        Constellation.text=[responseObject objectForKey:@"name"];
-        Constellation.font=[UIFont systemFontOfSize:SCREENWIDTH/22];
-        Constellation.textAlignment=NSTextAlignmentCenter;
-        [self.view addSubview:Constellation];
-        [Constellation mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(SCREENWIDTH/2, SCREENWIDTH/20));
-            make.centerX.mas_equalTo(self.view);
-            make.centerY.mas_equalTo(self.view).offset(-SCREENWIDTH/3);
-        }];
-        
-        
-        UILabel *LuckyColor=[[UILabel alloc]init];
-        NSMutableString* ColorText=[NSMutableString stringWithString:@"幸运色:"];
-        [ColorText appendString:[responseObject objectForKey:@"color"]];
-        LuckyColor.text=ColorText;
-        LuckyColor.font=[UIFont systemFontOfSize:SCREENWIDTH/22];
-        LuckyColor.textAlignment=NSTextAlignmentCenter;
-        [self.view addSubview:LuckyColor];
-        [LuckyColor mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(SCREENWIDTH/2, SCREENWIDTH/20));
-            make.centerX.mas_equalTo(self.view);
-            make.top.mas_equalTo(Constellation).offset(SCREENWIDTH/12);
-        }];
-        
-        
-        UILabel *Luck=[[UILabel alloc]init];
-        NSMutableString* LuckText=[NSMutableString stringWithString:@"        "];
-        [LuckText appendString:[responseObject objectForKey:@"summary"]];
-        Luck.text=LuckText;
-        Luck.numberOfLines=0;
-        Luck.font=[UIFont systemFontOfSize:SCREENWIDTH/22];
-        Luck.textAlignment=NSTextAlignmentCenter;
-        [self.view addSubview:Luck];
-        [Luck mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(SCREENWIDTH - 50, SCREENWIDTH/2));
-            make.centerX.mas_equalTo(self.view);
-            make.bottom.mas_equalTo(LuckyColor).offset(SCREENWIDTH/2);
-        }];
+        if ([responseObject[@"reason"] isEqual:[NSNull null]]) {
+            
+            UILabel *constellation = [[UILabel alloc]init];
+            constellation.text = self.controlName;
+            constellation.font = [UIFont systemFontOfSize:SCREENWIDTH/22];
+            constellation.textAlignment = NSTextAlignmentCenter;
+            [self.view addSubview:constellation];
+            [constellation mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(SCREENWIDTH/2, SCREENWIDTH/20));
+                make.centerX.mas_equalTo(self.view);
+                make.centerY.mas_equalTo(self.view).offset(-SCREENWIDTH/3);
+            }];
+            
+            
+            UILabel *LuckyColor = [[UILabel alloc]init];
+            LuckyColor.text = [NSMutableString stringWithFormat:@"幸运色:%@", responseObject[@"color"]];
+            LuckyColor.font = [UIFont systemFontOfSize:SCREENWIDTH/22];
+            LuckyColor.textAlignment=NSTextAlignmentCenter;
+            [self.view addSubview:LuckyColor];
+            [LuckyColor mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(SCREENWIDTH/2, SCREENWIDTH/20));
+                make.centerX.mas_equalTo(self.view);
+                make.top.mas_equalTo(constellation).offset(SCREENWIDTH/12);
+            }];
+            
+            
+            UILabel *Luck = [[UILabel alloc]init];
+            Luck.text = [NSMutableString stringWithFormat:@"       %@", responseObject[@"summary"]];
+            Luck.numberOfLines = 0;
+            Luck.font=[UIFont systemFontOfSize:SCREENWIDTH/22];
+            Luck.textAlignment=NSTextAlignmentCenter;
+            [self.view addSubview:Luck];
+            [Luck mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(SCREENWIDTH - 50, SCREENWIDTH/2));
+                make.centerX.mas_equalTo(self.view);
+                make.bottom.mas_equalTo(LuckyColor).offset(SCREENWIDTH/2);
+            }];
+        } else {
+            [self createSign:responseObject[@"reason"]];
+        }
 
-
-        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"获取数据失败/n%@",error);
     }];
@@ -175,4 +178,5 @@
     [Sign addAction:Yes];
     [self presentViewController:Sign animated:YES completion:nil];
 }
+
 @end

@@ -18,8 +18,8 @@
 {
     CoreDataBase *cdb;
 }
-@property (nonatomic,strong) UITableView *myFellowTableView;
-@property (nonatomic,strong) NSMutableArray *cellArray;
+@property(strong, nonatomic) UITableView *tableView;
+@property(strong, nonatomic) NSMutableArray *cellArray;
 
 @end
 
@@ -36,12 +36,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.navigationController.navigationBar.barTintColor=[UIColor cyanColor];
     
-    _myFellowTableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0,SCEENWIDTH , SCREENHEIGHT)];
-    _myFellowTableView.delegate=self;
-    _myFellowTableView.dataSource=self;
-    [self.view addSubview:_myFellowTableView];
+    _tableView=[[UITableView alloc]initWithFrame:CGRectMake(0, 0,SCEENWIDTH , SCREENHEIGHT)];
+    _tableView.delegate=self;
+    _tableView.dataSource=self;
+    [self.view addSubview:_tableView];
     
 }
 
@@ -58,7 +59,7 @@
     // 隐藏时间
     header.lastUpdatedTimeLabel.hidden = NO;
     [header beginRefreshing];
-    _myFellowTableView.mj_header = header;
+    _tableView.mj_header = header;
 }
 
 #pragma mark - ---------- 读取数据 ----------
@@ -67,9 +68,9 @@
     //刷新表格 从数据库读取数据
     cdb= [CoreDataBase shardCoreDataBase];
     _cellArray=[cdb queryEntityName:@"Like" Where:nil];
-    [_myFellowTableView reloadData];
+    [_tableView reloadData];
     // 拿到当前的下拉刷新控件，结束刷新状态
-    [_myFellowTableView.mj_header endRefreshing];
+    [_tableView.mj_header endRefreshing];
 }
 
 #pragma mark - ---------- Cell的数量 ----------
@@ -110,7 +111,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self deleteData:indexPath];
         [_cellArray removeObjectAtIndex:indexPath.row];
-        [_myFellowTableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [_tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 
         
     }

@@ -13,42 +13,40 @@
 #import "PersonViewController.h"
 
 @interface AppDelegate ()
-
+{
+    UITabBarController *mainTBC;
+}
 @end
 
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    UITabBarController *MainTBC=[[UITabBarController alloc]init];  //设置MainTBC
+   
+    mainTBC=[[UITabBarController alloc]init];
     
 /*------------------------------------------------------*/
 /*+++             设置各个Controller                  +++*/
 /*------------------------------------------------------*/
-    MainViewController *MainVC=[[MainViewController alloc]init];
-    MainVC.tabBarItem.image=[UIImage imageNamed:@"1"];
-    UINavigationController *nc1=[[UINavigationController alloc]initWithRootViewController:MainVC];
-    MainVC.title=@"今日运势";
+    MainViewController *vc1 = [[MainViewController alloc]init];
+    [self setController:vc1 andTitle:@"今日运势" andImageName:@"1"];
+    UINavigationController *nc1 = [self setNavigationController:vc1];
     
-    MyCareViewController *MyCareVC=[[MyCareViewController alloc]init];
-    MyCareVC.tabBarItem.image=[UIImage imageNamed:@"2"];
-    UINavigationController *nc2=[[UINavigationController alloc]initWithRootViewController:MyCareVC];
-    MyCareVC.title=@"我的关注";
+    MyCareViewController *vc2 = [[MyCareViewController alloc]init];
+    [self setController:vc2 andTitle:@"我的关注" andImageName:@"2"];
+    UINavigationController *nc2 = [self setNavigationController:vc2];
     
-    SettingViewController *SettingVC=[[SettingViewController alloc]init];
-    SettingVC.tabBarItem.image=[UIImage imageNamed:@"3"];
-    UINavigationController *nc3=[[UINavigationController alloc]initWithRootViewController:SettingVC];
-    SettingVC.title=@"系统设置";
+    SettingViewController *vc3 = [[SettingViewController alloc]init];
+    [self setController:vc3 andTitle:@"系统设置" andImageName:@"3"];
+    UINavigationController *nc3 = [self setNavigationController:vc3];
     
-    PersonViewController *PersonVC=[[PersonViewController alloc]init];
-    PersonVC.tabBarItem.image=[UIImage imageNamed:@"4"];
-    UINavigationController *nc4=[[UINavigationController alloc]initWithRootViewController:PersonVC];
-    PersonVC.title=@"我的信息";
+    PersonViewController *vc4 = [[PersonViewController alloc]init];
+    [self setController:vc4 andTitle:@"我的信息" andImageName:@"4"];
+    UINavigationController *nc4 = [self setNavigationController:vc4];
     
-/*      -----将各个Controller添加到MainTBC-----      */
-    
-    MainTBC.viewControllers=@[nc1,nc2,nc3,nc4];
-    self.window.rootViewController=MainTBC;        //根控制器
+/*      -----将各个Controller添加到mainTBC-----      */
+    mainTBC.viewControllers = @[nc1,nc2,nc3,nc4];
+    self.window.rootViewController = mainTBC;        //根控制器
     
     return YES;
 }
@@ -72,4 +70,20 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
 
 }
+
+#pragma mark - ---------- 设置VC基本信息 ----------
+- (void)setController:(UIViewController *)vc andTitle:(NSString *)title andImageName:(NSString *)imageString
+{
+    vc.title = title;
+    vc.tabBarItem.image = [UIImage imageNamed:imageString];
+}
+
+#pragma mark - ---------- 设置NVC基本信息 ----------
+- (UINavigationController *)setNavigationController:(UIViewController *)vc
+{
+    UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:vc];
+    [nvc.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    return nvc;
+}
+
 @end
