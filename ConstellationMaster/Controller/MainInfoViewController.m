@@ -123,7 +123,7 @@
         //最近测试接口发现有时会出现没有数据，导致程序崩溃的问题
         //这里进行一下判断
         
-        if ([responseObject[@"reason"] isEqual:[NSNull null]]) {
+        if (responseObject[@"reason"] == nil) {
             
             UILabel *constellation = [[UILabel alloc]init];
             constellation.text = self.controlName;
