@@ -136,7 +136,6 @@
                 make.centerY.mas_equalTo(self.view).offset(-SCREENWIDTH/3);
             }];
             
-            
             UILabel *LuckyColor = [[UILabel alloc]init];
             LuckyColor.text = [NSMutableString stringWithFormat:@"幸运色:%@", responseObject[@"color"]];
             LuckyColor.font = [UIFont systemFontOfSize:SCREENWIDTH/22];
