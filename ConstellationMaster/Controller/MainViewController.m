@@ -90,6 +90,7 @@
 {
     MainInfoViewController *vc=[[MainInfoViewController alloc]init];
     vc.controlName = _constellationName[indexPath.row];
+    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

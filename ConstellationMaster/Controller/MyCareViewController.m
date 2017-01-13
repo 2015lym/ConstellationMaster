@@ -105,6 +105,12 @@
     return YES;
 }
 
+#pragma mark - ---------- 每个Cell的点击事件 ----------
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 #pragma mark - ---------- 删除Cell ----------
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     

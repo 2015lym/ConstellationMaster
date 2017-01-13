@@ -44,6 +44,8 @@
     [self setController:vc4 andTitle:@"我的信息" andImageName:@"4"];
     UINavigationController *nc4 = [self setNavigationController:vc4];
     
+    [[UINavigationBar appearance]setTintColor:[UIColor whiteColor]];
+    
 /*      -----将各个Controller添加到mainTBC-----      */
     mainTBC.viewControllers = @[nc1,nc2,nc3,nc4];
     self.window.rootViewController = mainTBC;        //根控制器
