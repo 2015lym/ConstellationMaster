@@ -17,10 +17,8 @@
 #define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
 
 @interface MainInfoViewController()
-{
-    NSMutableArray *coreDatasArray;
-}
-@property(strong, nonatomic) UIButton *userAttention;
+@property (nonatomic, strong) UIButton *userAttention;
+@property (nonatomic, strong) NSMutableArray *coreDatasArray;
 
 @end
 
@@ -46,8 +44,8 @@
     self.navigationController.navigationBar.barTintColor=[UIColor cyanColor];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    _userAttention=[[UIButton alloc]initWithFrame:CGRectMake(20 , 150, SCREENWIDTH/4, SCREENWIDTH/10)];
-    _userAttention.backgroundColor=[UIColor greenColor];
+    _userAttention = [[UIButton alloc]initWithFrame:CGRectMake(20 , 150, SCREENWIDTH/4, SCREENWIDTH/10)];
+    _userAttention.backgroundColor = [UIColor greenColor];
     [_userAttention setTitle:@"关注" forState:UIControlStateNormal];
     [_userAttention addTarget:self action:@selector(followThisConstellation) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_userAttention];
@@ -59,9 +57,9 @@
     
     //检测是否已经关注过了
     CoreDataBase *cdb = [CoreDataBase shardCoreDataBase];
-    coreDatasArray=[cdb queryEntityName:@"Like" Where:nil];
-    for (int i=0; i<coreDatasArray.count; i++) {
-        Like *searchlike=coreDatasArray[i];
+    _coreDatasArray = [cdb queryEntityName:@"Like" Where:nil];
+    for (int i=0; i<_coreDatasArray.count; i++) {
+        Like *searchlike = _coreDatasArray[i];
         if ([self.controlName isEqualToString:searchlike.name]) {
             [_userAttention setTitle:@"已关注" forState:UIControlStateNormal];
             break; //如果已经找到了就直接跳出循环
@@ -72,27 +70,24 @@
 #pragma mark - ---------- 关注点击事件 ----------
 -(void)followThisConstellation
 {
-    int Cnametest=0;
+    int Cnametest = 0;
     CoreDataBase *cdb = [CoreDataBase shardCoreDataBase];
-    coreDatasArray=[cdb queryEntityName:@"Like" Where:nil];
-    for (int i=0; i<coreDatasArray.count; i++) {
-        Like *searchlike=coreDatasArray[i];
+    _coreDatasArray = [cdb queryEntityName:@"Like" Where:nil];
+    for (int i=0; i<_coreDatasArray.count; i++) {
+        Like *searchlike = _coreDatasArray[i];
         if ([self.controlName isEqualToString:searchlike.name]) {
-            Cnametest=1;
+            Cnametest = 1;
             break;
         }
     }
     
-    if(Cnametest==0)
-    {
+    if(Cnametest==0) {
         Like *newlike=[NSEntityDescription insertNewObjectForEntityForName:@"Like" inManagedObjectContext:cdb.managedObjectContext];
         newlike.name=self.controlName;
         [cdb saveContext];
         [_userAttention setTitle:@"已关注" forState:UIControlStateNormal];
         [self createSign:@"添加关注成功"];
-    }
-    else
-    {
+    } else {
         [self createSign:@"你已经关注过了"];
     }
 }
@@ -125,7 +120,7 @@
         
         if (responseObject[@"reason"] == nil) {
             
-            UILabel *constellation = [[UILabel alloc]init];
+            UILabel *constellation = [[UILabel alloc] init];
             constellation.text = self.controlName;
             constellation.font = [UIFont systemFontOfSize:SCREENWIDTH/22];
             constellation.textAlignment = NSTextAlignmentCenter;
@@ -136,7 +131,7 @@
                 make.centerY.mas_equalTo(self.view).offset(-SCREENWIDTH/3);
             }];
             
-            UILabel *LuckyColor = [[UILabel alloc]init];
+            UILabel *LuckyColor = [[UILabel alloc] init];
             LuckyColor.text = [NSMutableString stringWithFormat:@"幸运色:%@", responseObject[@"color"]];
             LuckyColor.font = [UIFont systemFontOfSize:SCREENWIDTH/22];
             LuckyColor.textAlignment=NSTextAlignmentCenter;
@@ -148,11 +143,11 @@
             }];
             
             
-            UILabel *Luck = [[UILabel alloc]init];
+            UILabel *Luck = [[UILabel alloc] init];
             Luck.text = [NSMutableString stringWithFormat:@"       %@", responseObject[@"summary"]];
             Luck.numberOfLines = 0;
-            Luck.font=[UIFont systemFontOfSize:SCREENWIDTH/22];
-            Luck.textAlignment=NSTextAlignmentCenter;
+            Luck.font = [UIFont systemFontOfSize:SCREENWIDTH/22];
+            Luck.textAlignment = NSTextAlignmentCenter;
             [self.view addSubview:Luck];
             [Luck mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(CGSizeMake(SCREENWIDTH - 50, SCREENWIDTH/2));
@@ -172,10 +167,16 @@
 
 -(void)createSign:(NSString *)sign
 {
-    UIAlertController *Sign=[UIAlertController alertControllerWithTitle:sign message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *Yes=[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+    UIAlertController *Sign = [UIAlertController alertControllerWithTitle:sign
+                                                                  message:nil
+                                                           preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *Yes = [UIAlertAction actionWithTitle:@"确定"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:nil];
     [Sign addAction:Yes];
-    [self presentViewController:Sign animated:YES completion:nil];
+    [self presentViewController:Sign
+                       animated:YES
+                     completion:nil];
 }
 
 @end

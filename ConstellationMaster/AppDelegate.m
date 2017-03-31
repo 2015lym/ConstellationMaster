@@ -25,9 +25,9 @@
    
     mainTBC=[[UITabBarController alloc]init];
     
-/*------------------------------------------------------*/
-/*+++             设置各个Controller                  +++*/
-/*------------------------------------------------------*/
+    /*-------------------------------------------------*/
+    /*                  设置各个Controller               */
+    /*-------------------------------------------------*/
     MainViewController *vc1 = [[MainViewController alloc]init];
     [self setController:vc1 andTitle:@"今日运势" andImageName:@"1"];
     UINavigationController *nc1 = [self setNavigationController:vc1];

@@ -13,11 +13,11 @@
 #define SCREENWIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
 
-@interface MainViewController()<UICollectionViewDataSource,UICollectionViewDelegate>
+@interface MainViewController()<UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property(strong, nonatomic) UICollectionView * fLowLayoutView;
-@property(strong, nonatomic) NSArray *constellationImage;
-@property(strong, nonatomic) NSArray *constellationName;
+@property (nonatomic, strong) UICollectionView * fLowLayoutView;
+@property (nonatomic, strong) NSArray *constellationImage;
+@property (nonatomic, strong) NSArray *constellationName;
 
 @end
 
@@ -54,13 +54,13 @@
 #pragma mark - ---------- 初始化CollectionView ----------
 - (void)initCollectionView
 {
-    UICollectionViewFlowLayout *constellatioFlowLayout = [[UICollectionViewFlowLayout alloc]init];
+    UICollectionViewFlowLayout *constellatioFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     constellatioFlowLayout.itemSize = CGSizeMake(SCREENWIDTH/4, SCREENWIDTH/4);
     constellatioFlowLayout.sectionInset = UIEdgeInsetsMake(10, 18, 18, 18);
     constellatioFlowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     
     self.fLowLayoutView=[[UICollectionView alloc] initWithFrame:CGRectMake(0, 50, SCREENWIDTH, SCREENHEIGHT-50)
-                                       collectionViewLayout:constellatioFlowLayout];
+                                       collectionViewLayout: constellatioFlowLayout];
     _fLowLayoutView.backgroundColor = [UIColor whiteColor];
     _fLowLayoutView.dataSource = self;
     _fLowLayoutView.delegate = self;
@@ -80,15 +80,15 @@
     static NSString * identity=@"cell";
     ConstellFlowLayoutCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identity forIndexPath:indexPath];
     [cell initContent];
-    cell.constellationImageView.image=[UIImage imageNamed:_constellationImage[indexPath.row]];
-    cell.constellationNameLabel.text=_constellationName[indexPath.row];
+    cell.constellationImageView.image = [UIImage imageNamed: _constellationImage[indexPath.row]];
+    cell.constellationNameLabel.text = _constellationName[indexPath.row];
     return cell;
 }
 
 #pragma mark - ---------- 每个Cell的点击事件 ----------
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    MainInfoViewController *vc=[[MainInfoViewController alloc]init];
+    MainInfoViewController *vc = [[MainInfoViewController alloc]init];
     vc.controlName = _constellationName[indexPath.row];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
