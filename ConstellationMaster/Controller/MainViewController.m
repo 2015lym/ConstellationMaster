@@ -80,8 +80,8 @@
     static NSString * identity=@"cell";
     ConstellFlowLayoutCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identity forIndexPath:indexPath];
     [cell initContent];
-    cell.constellationImageView.image = [UIImage imageNamed: _constellationImage[indexPath.row]];
-    cell.constellationNameLabel.text = _constellationName[indexPath.row];
+    cell.constellationImageView.image = [UIImage imageNamed: _constellationImage[indexPath.item]];
+    cell.constellationNameLabel.text = _constellationName[indexPath.item];
     return cell;
 }
 
@@ -89,7 +89,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     MainInfoViewController *vc = [[MainInfoViewController alloc]init];
-    vc.controlName = _constellationName[indexPath.row];
+    vc.controlName = _constellationName[indexPath.item];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }

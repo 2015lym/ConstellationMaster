@@ -143,22 +143,21 @@
 #pragma mark - ---------- 取消关注 ----------
 -(void)deleteData:(NSIndexPath *)indexPath
 {
-     NSFetchRequest * fetchRequest = [[NSFetchRequest alloc] init];
-     NSEntityDescription * entity = [NSEntityDescription entityForName:@"Like"
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription * entity = [NSEntityDescription entityForName:@"Like"
                                                 inManagedObjectContext:cdb.managedObjectContext];
-     [fetchRequest setEntity:entity];
+    [fetchRequest setEntity:entity];
 
-     NSError * requestError = nil;
-     NSArray * persons = [cdb.managedObjectContext executeFetchRequest:fetchRequest
+    NSError * requestError = nil;
+    NSArray * persons = [cdb.managedObjectContext executeFetchRequest:fetchRequest
                                                                  error:&requestError];
 
-     if ([persons count] > 0) {
+    if ([persons count] > 0) {
          // 删除数据
          [cdb.managedObjectContext deleteObject:_cellArray[indexPath.row]];
          if ([_cellArray[indexPath.row] isDeleted]) {
             NSLog(@"删除成功");
             NSError * savingError = nil;
-             
              if ([cdb.managedObjectContext save:&savingError]) {
                  NSLog(@"储存成功");
         
@@ -167,11 +166,11 @@
              }
              
         } else {
-                     NSLog(@"删除失败");
+            NSLog(@"删除失败");
         }
-     } else {
-                 NSLog(@"没有找到实体");
-     }
+    } else {
+         NSLog(@"没有找到实体");
+    }
 }
 
 @end
