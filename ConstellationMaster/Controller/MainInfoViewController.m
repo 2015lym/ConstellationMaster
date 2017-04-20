@@ -47,7 +47,9 @@
     _userAttention = [[UIButton alloc]initWithFrame:CGRectMake(20 , 150, SCREENWIDTH/4, SCREENWIDTH/10)];
     _userAttention.backgroundColor = [UIColor greenColor];
     [_userAttention setTitle:@"关注" forState:UIControlStateNormal];
-    [_userAttention addTarget:self action:@selector(followThisConstellation) forControlEvents:UIControlEventTouchUpInside];
+    [_userAttention addTarget:self
+                       action:@selector(followThisConstellation)
+             forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_userAttention];
     [_userAttention mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(SCREENWIDTH/4, SCREENWIDTH/10));

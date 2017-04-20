@@ -145,7 +145,7 @@
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription * entity = [NSEntityDescription entityForName:@"Like"
-                                                inManagedObjectContext:cdb.managedObjectContext];
+                                               inManagedObjectContext:cdb.managedObjectContext];
     [fetchRequest setEntity:entity];
 
     NSError * requestError = nil;

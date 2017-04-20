@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.barTintColor=[UIColor cyanColor];
+    self.navigationController.navigationBar.barTintColor = [UIColor cyanColor];
     
     [self initDefaultArray];
     [self initCollectionView];
