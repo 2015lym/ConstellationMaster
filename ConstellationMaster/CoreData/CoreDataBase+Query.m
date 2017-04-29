@@ -10,7 +10,7 @@
 
 @implementation CoreDataBase (Query)
 
--(NSMutableArray*)queryEntityName:(NSString*)name Where:(NSString*)where {
+- (NSMutableArray*)queryEntityName:(NSString*)name Where:(NSString*)where {
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:name

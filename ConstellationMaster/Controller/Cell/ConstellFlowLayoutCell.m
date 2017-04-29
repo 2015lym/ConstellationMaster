@@ -13,7 +13,7 @@
 
 @implementation ConstellFlowLayoutCell
 
--(void)initContent
+- (void)initContent
 {
     _constellationImageView = [[UIImageView alloc]init];
     [self.contentView addSubview:_constellationImageView];

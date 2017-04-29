@@ -14,7 +14,8 @@ static  CoreDataBase * shared =nil;
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
-+(id)shardCoreDataBase{
+
++ (id)shardCoreDataBase {
     static dispatch_once_t x;
     dispatch_once(&x, ^{
         if (shared == nil) {
@@ -23,6 +24,7 @@ static  CoreDataBase * shared =nil;
     });
     return shared;
 }
+
 - (NSURL *)applicationDocumentsDirectory {
     // The directory the application uses to store the Core Data store file. This code uses a directory named "com.Lym.ConstellationMaster" in the application's documents directory.
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];

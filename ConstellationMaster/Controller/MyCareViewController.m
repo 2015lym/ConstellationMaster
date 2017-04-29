@@ -68,8 +68,8 @@
 -(void)loadNewData
 {
     //刷新表格 从数据库读取数据
-    cdb= [CoreDataBase shardCoreDataBase];
-    _cellArray=[cdb queryEntityName:@"Like" Where:nil];
+    cdb = [CoreDataBase shardCoreDataBase];
+    _cellArray = [cdb queryEntityName:@"Like" Where:nil];
     [_tableView reloadData];
     // 拿到当前的下拉刷新控件，结束刷新状态
     [_tableView.mj_header endRefreshing];

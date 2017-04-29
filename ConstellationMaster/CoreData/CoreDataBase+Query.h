@@ -10,6 +10,6 @@
 
 @interface CoreDataBase (Query)
 
--(NSMutableArray*)queryEntityName:(NSString*)name Where:(NSString*)where;
+- (NSMutableArray*)queryEntityName:(NSString*)name Where:(NSString*)where;
 
 @end
