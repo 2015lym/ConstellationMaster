@@ -37,7 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.barTintColor=[UIColor cyanColor];
+    self.navigationController.navigationBar.barTintColor = [UIColor cyanColor];
     
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCEENWIDTH, SCREENHEIGHT)];
     _tableView.delegate = self;
@@ -55,7 +55,8 @@
 #pragma mark - ---------- MJRefresh ----------
 -(void)setMJRefresh {
     // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
-    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self
+                                                                     refreshingAction:@selector(loadNewData)];
     // 设置自动切换透明度(在导航栏下面自动隐藏)
     header.automaticallyChangeAlpha = YES;
     // 隐藏时间
@@ -88,7 +89,8 @@
     static NSString *identity = @"cell";
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:identity];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identity];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                      reuseIdentifier:identity];
     }
     Like *likecell = _cellArray[indexPath.row];
     cell.textLabel.text = likecell.name;

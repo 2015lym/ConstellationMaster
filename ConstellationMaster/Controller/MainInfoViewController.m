@@ -83,8 +83,9 @@
         }
     }
     
-    if(Cnametest==0) {
-        Like *newlike=[NSEntityDescription insertNewObjectForEntityForName:@"Like" inManagedObjectContext:cdb.managedObjectContext];
+    if(Cnametest == 0) {
+        Like *newlike=[NSEntityDescription insertNewObjectForEntityForName:@"Like"
+                                                    inManagedObjectContext:cdb.managedObjectContext];
         newlike.name=self.controlName;
         [cdb saveContext];
         [_userAttention setTitle:@"已关注" forState:UIControlStateNormal];
@@ -115,7 +116,10 @@
     dic[@"type"] = @"today";
     dic[@"key"] = @"5af259fa1e1f066249cf10a1297b4023";
     
-    [manager POST:@"http://web.juhe.cn:8080/constellation/getAll" parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager POST:@"http://web.juhe.cn:8080/constellation/getAll"
+       parameters:dic
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         //最近测试接口发现有时会出现没有数据，导致程序崩溃的问题
         //这里进行一下判断
@@ -123,7 +127,7 @@
         if (responseObject[@"reason"] == nil) {
             
             UILabel *constellation = [[UILabel alloc] init];
-            constellation.text = self.controlName;
+            constellation.text = _controlName;
             constellation.font = [UIFont systemFontOfSize:SCREENWIDTH/22];
             constellation.textAlignment = NSTextAlignmentCenter;
             [self.view addSubview:constellation];

@@ -60,7 +60,7 @@
     constellatioFlowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     
     self.fLowLayoutView=[[UICollectionView alloc] initWithFrame:CGRectMake(0, 50, SCREENWIDTH, SCREENHEIGHT-50)
-                                       collectionViewLayout: constellatioFlowLayout];
+                                           collectionViewLayout:constellatioFlowLayout];
     _fLowLayoutView.backgroundColor = [UIColor whiteColor];
     _fLowLayoutView.dataSource = self;
     _fLowLayoutView.delegate = self;
@@ -78,7 +78,8 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString * identity=@"cell";
-    ConstellFlowLayoutCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identity forIndexPath:indexPath];
+    ConstellFlowLayoutCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identity
+                                                                             forIndexPath:indexPath];
     [cell initContent];
     cell.constellationImageView.image = [UIImage imageNamed: _constellationImage[indexPath.item]];
     cell.constellationNameLabel.text = _constellationName[indexPath.item];
