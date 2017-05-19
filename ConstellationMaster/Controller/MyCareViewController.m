@@ -54,7 +54,7 @@
 
 #pragma mark - ---------- MJRefresh ----------
 -(void)setMJRefresh {
-    // 设置回调（一旦进入刷新状态，就调用target的action，也就是调用self的loadNewData方法）
+    
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self
                                                                      refreshingAction:@selector(loadNewData)];
     // 设置自动切换透明度(在导航栏下面自动隐藏)
@@ -66,8 +66,7 @@
 }
 
 #pragma mark - ---------- 读取数据 ----------
--(void)loadNewData
-{
+-(void)loadNewData {
     //刷新表格 从数据库读取数据
     cdb = [CoreDataBase shardCoreDataBase];
     _cellArray = [cdb queryEntityName:@"Like" Where:nil];
@@ -77,14 +76,12 @@
 }
 
 #pragma mark - ---------- Cell的数量 ----------
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _cellArray.count;
 }
 
 #pragma mark - ---------- 每个Cell的内容 ----------
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     //优化
     static NSString *identity = @"cell";
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:identity];
@@ -98,20 +95,17 @@
 }
 
 #pragma mark - ---------- 每个Cell的高度 ----------
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 100.f;
 }
 
 #pragma mark - ---------- Cell是否可被编辑 ----------
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
 
 #pragma mark - ---------- 每个Cell的点击事件 ----------
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     MainInfoViewController *vc = [[MainInfoViewController alloc]init];
     Like *likecell = _cellArray[indexPath.row];
@@ -121,9 +115,7 @@
 }
 
 #pragma mark - ---------- 删除Cell ----------
--(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
-
-{
+-(NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewRowAction *rowAction;
     
     rowAction = [UITableViewRowAction
@@ -143,8 +135,7 @@
 }
 
 #pragma mark - ---------- 取消关注 ----------
--(void)deleteData:(NSIndexPath *)indexPath
-{
+-(void)deleteData:(NSIndexPath *)indexPath {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription * entity = [NSEntityDescription entityForName:@"Like"
                                                inManagedObjectContext:cdb.managedObjectContext];

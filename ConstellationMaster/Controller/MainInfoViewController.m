@@ -37,8 +37,7 @@
 }
 
 #pragma mark - ---------- 初始化界面 ----------
-- (void)configUI
-{
+- (void)configUI {
     self.navigationItem.title = self.controlName;
     
     self.navigationController.navigationBar.barTintColor=[UIColor cyanColor];
@@ -70,8 +69,7 @@
 }
 
 #pragma mark - ---------- 关注点击事件 ----------
--(void)followThisConstellation
-{
+-(void)followThisConstellation {
     int Cnametest = 0;
     CoreDataBase *cdb = [CoreDataBase shardCoreDataBase];
     _coreDatasArray = [cdb queryEntityName:@"Like" Where:nil];
@@ -97,8 +95,7 @@
 
 
 #pragma mark - ---------- 网络数据获取 ----------
-- (void)netRequest
-{
+- (void)netRequest {
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //接收类型不一致请替换一致text/html或别的
@@ -171,8 +168,7 @@
     
 }
 
--(void)createSign:(NSString *)sign
-{
+-(void)createSign:(NSString *)sign {
     UIAlertController *Sign = [UIAlertController alertControllerWithTitle:sign
                                                                   message:nil
                                                            preferredStyle:UIAlertControllerStyleAlert];

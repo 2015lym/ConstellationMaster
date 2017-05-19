@@ -30,7 +30,6 @@
     
     [self initDefaultArray];
     [self initCollectionView];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,8 +37,7 @@
 }
 
 #pragma mark - ---------- 初始化数组 ----------
-- (void)initDefaultArray
-{
+- (void)initDefaultArray {
     _constellationImage = [NSArray arrayWithObjects:
                            @"baiyang", @"jinniu", @"shuangzi", @"juxie",
                            @"shizi", @"chunv", @"tianping", @"tianxie",
@@ -52,8 +50,7 @@
 }
 
 #pragma mark - ---------- 初始化CollectionView ----------
-- (void)initCollectionView
-{
+- (void)initCollectionView {
     UICollectionViewFlowLayout *constellatioFlowLayout = [[UICollectionViewFlowLayout alloc] init];
     constellatioFlowLayout.itemSize = CGSizeMake(SCREENWIDTH/4, SCREENWIDTH/4);
     constellatioFlowLayout.sectionInset = UIEdgeInsetsMake(10, 18, 18, 18);
@@ -69,14 +66,12 @@
 }
 
 #pragma mark - ---------- Collection的数量 ----------
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return _constellationImage.count;
 }
 
 #pragma mark - ---------- 每个Cell的内容 ----------
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     static NSString * identity=@"cell";
     ConstellFlowLayoutCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identity
                                                                              forIndexPath:indexPath];
@@ -87,8 +82,7 @@
 }
 
 #pragma mark - ---------- 每个Cell的点击事件 ----------
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     MainInfoViewController *vc = [[MainInfoViewController alloc]init];
     vc.controlName = _constellationName[indexPath.item];
     vc.hidesBottomBarWhenPushed = YES;
