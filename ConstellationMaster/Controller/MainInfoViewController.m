@@ -38,9 +38,9 @@
 
 #pragma mark - ---------- 初始化界面 ----------
 - (void)configUI {
-    self.navigationItem.title = self.controlName;
+    self.navigationItem.title = _controlName;
     
-    self.navigationController.navigationBar.barTintColor=[UIColor cyanColor];
+    self.navigationController.navigationBar.barTintColor = [UIColor cyanColor];
     self.view.backgroundColor = [UIColor whiteColor];
     
     _userAttention = [[UIButton alloc]initWithFrame:CGRectMake(20 , 150, SCREENWIDTH/4, SCREENWIDTH/10)];
@@ -61,7 +61,7 @@
     _coreDatasArray = [cdb queryEntityName:@"Like" Where:nil];
     for (int i=0; i<_coreDatasArray.count; i++) {
         Like *searchlike = _coreDatasArray[i];
-        if ([self.controlName isEqualToString:searchlike.name]) {
+        if ([_controlName isEqualToString:searchlike.name]) {
             [_userAttention setTitle:@"已关注" forState:UIControlStateNormal];
             break; //如果已经找到了就直接跳出循环
         }
@@ -75,16 +75,16 @@
     _coreDatasArray = [cdb queryEntityName:@"Like" Where:nil];
     for (int i=0; i<_coreDatasArray.count; i++) {
         Like *searchlike = _coreDatasArray[i];
-        if ([self.controlName isEqualToString:searchlike.name]) {
+        if ([_controlName isEqualToString:searchlike.name]) {
             Cnametest = 1;
             break;
         }
     }
     
     if(Cnametest == 0) {
-        Like *newlike=[NSEntityDescription insertNewObjectForEntityForName:@"Like"
+        Like *newlike = [NSEntityDescription insertNewObjectForEntityForName:@"Like"
                                                     inManagedObjectContext:cdb.managedObjectContext];
-        newlike.name=self.controlName;
+        newlike.name = _controlName;
         [cdb saveContext];
         [_userAttention setTitle:@"已关注" forState:UIControlStateNormal];
         [self createSign:@"添加关注成功"];
@@ -109,7 +109,7 @@
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     
-    dic[@"consName"] = self.controlName;
+    dic[@"consName"] = _controlName;
     dic[@"type"] = @"today";
     dic[@"key"] = @"5af259fa1e1f066249cf10a1297b4023";
     
